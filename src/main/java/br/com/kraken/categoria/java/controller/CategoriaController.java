@@ -4,12 +4,13 @@ import br.com.kraken.categoria.java.model.CategoriaModel;
 import br.com.kraken.categoria.java.modelDTO.CategoriaDTO;
 import br.com.kraken.categoria.java.service.CategoriaService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,10 +39,20 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarCategoria (@RequestBody @Valid CategoriaDTO categoriaDTO) {
+    public ResponseEntity<Object> cadastrarCategoria (@RequestParam(value = "titulo") String titulo, @RequestParam(value = "descricao") String descricao, @RequestPart(value = "imagem")MultipartFile imagem) {
         CategoriaModel categoriaModel = new CategoriaModel();
-        BeanUtils.copyProperties(categoriaDTO, categoriaModel);
-        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.getCategoriaRepository().save(categoriaModel));
+        try {
+            if (imagem.isEmpty())
+                return ResponseEntity.badRequest().body("Not Found Image");
+            String imageBase = Base64.getEncoder().encodeToString(imagem.getBytes());
+            categoriaModel.setTitulo(titulo);
+            categoriaModel.setDescricao(descricao);
+            categoriaModel.setImagem(imageBase);
+
+            return ResponseEntity.status(HttpStatus.OK).body(categoriaService.getCategoriaRepository().save(categoriaModel));
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body("Error Register Image");
+        }
     }
 
     @PutMapping ("/{id}")

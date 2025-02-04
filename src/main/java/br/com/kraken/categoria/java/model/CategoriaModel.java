@@ -14,7 +14,7 @@ public class CategoriaModel {
     private String titulo;
     @Column(name = "descricao")
     private String descricao;
-    @Column(name = "imagem")
+    @Column(name = "imagem", columnDefinition = "TEXT")
     private String imagem;
 
     public CategoriaModel(UUID categoriaId, String titulo, String descricao, String imagem) {
