@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: categoria-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/vendas_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    ports:
+      - "8083:8083"
+    networks:
+      - java_vendas-network
+
+networks:
+  java_vendas-network:
+    external: true
