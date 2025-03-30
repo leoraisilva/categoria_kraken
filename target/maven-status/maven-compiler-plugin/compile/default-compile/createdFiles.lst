@@ -1,0 +1,6 @@
+br\com\kraken\categoria\CategoriaApplication.class
+br\com\kraken\categoria\java\service\CategoriaService.class
+br\com\kraken\categoria\java\repository\CategoriaRepository.class
+br\com\kraken\categoria\java\modelDTO\CategoriaDTO.class
+br\com\kraken\categoria\java\controller\CategoriaController.class
+br\com\kraken\categoria\java\model\CategoriaModel.class
