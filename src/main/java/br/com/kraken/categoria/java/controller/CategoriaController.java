@@ -1,15 +1,22 @@
 package br.com.kraken.categoria.java.controller;
 
+import br.com.kraken.categoria.java.model.AcessoModel;
 import br.com.kraken.categoria.java.model.CategoriaModel;
+import br.com.kraken.categoria.java.modelDTO.AcessoDTO;
 import br.com.kraken.categoria.java.modelDTO.CategoriaDTO;
+import br.com.kraken.categoria.java.service.AcessoService;
 import br.com.kraken.categoria.java.service.CategoriaService;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,8 +26,18 @@ import java.util.UUID;
 @RequestMapping ("/categoria")
 public class CategoriaController {
     private final CategoriaService categoriaService;
-    public CategoriaController (CategoriaService categoriaService){
+    private final AcessoService acessoService;
+    public CategoriaController (CategoriaService categoriaService, AcessoService acessoService){
         this.categoriaService = categoriaService;
+        this.acessoService = acessoService;
+    }
+
+    @PostMapping("/auth/registry")
+    public ResponseEntity<Object> clienteCategoria(@RequestBody @Valid AcessoDTO acessoDTO) {
+        var acessoModel = new AcessoModel();
+        BeanUtils.copyProperties(acessoDTO, acessoModel);
+        acessoModel.setDataCadastro(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
+        return ResponseEntity.status(HttpStatus.CREATED).body(acessoService.getRepository().save(acessoModel));
     }
 
     @GetMapping
@@ -39,6 +56,7 @@ public class CategoriaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'SALES')")
     public ResponseEntity<Object> cadastrarCategoria (@RequestParam(value = "titulo") String titulo, @RequestParam(value = "descricao") String descricao, @RequestPart(value = "imagem")MultipartFile imagem) {
         CategoriaModel categoriaModel = new CategoriaModel();
         try {
@@ -56,6 +74,7 @@ public class CategoriaController {
     }
 
     @PutMapping ("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SALES')")
     public ResponseEntity<Object> alterarCategoria (@PathVariable (value = "id") UUID id, @RequestBody @Valid CategoriaDTO categoriaDTO){
         Optional<CategoriaModel> categoriaModelOptional = categoriaService.getCategoriaRepository().findById(id);
         if (!categoriaModelOptional.isPresent()) {
@@ -67,6 +86,7 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.getCategoriaRepository().save(categoriaModelOptional.get()));
     }
     @DeleteMapping ("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SALES')")
     public ResponseEntity<Object> deletarCategoria (@PathVariable (value = "id") UUID id){
         Optional<CategoriaModel> categoriaModelOptional = categoriaService.getCategoriaRepository().findById(id);
         if (!categoriaModelOptional.isPresent()){
