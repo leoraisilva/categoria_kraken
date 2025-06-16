@@ -41,11 +41,13 @@ public class CategoriaController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Object> listarCategoria () {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.getCategoriaRepository().findAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Object> buscarCategoria (@PathVariable (value = "id") UUID id) {
         Optional<CategoriaModel> categoriaModelOptional = categoriaService.getCategoriaRepository().findById(id);
         return categoriaModelOptional.<ResponseEntity<Object>>map(
@@ -56,7 +58,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'SALES')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> cadastrarCategoria (@RequestParam(value = "titulo") String titulo, @RequestParam(value = "descricao") String descricao, @RequestPart(value = "imagem")MultipartFile imagem) {
         CategoriaModel categoriaModel = new CategoriaModel();
         try {
@@ -74,7 +76,7 @@ public class CategoriaController {
     }
 
     @PutMapping ("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SALES')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> alterarCategoria (@PathVariable (value = "id") UUID id, @RequestBody @Valid CategoriaDTO categoriaDTO){
         Optional<CategoriaModel> categoriaModelOptional = categoriaService.getCategoriaRepository().findById(id);
         if (!categoriaModelOptional.isPresent()) {
@@ -86,7 +88,7 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.getCategoriaRepository().save(categoriaModelOptional.get()));
     }
     @DeleteMapping ("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SALES')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deletarCategoria (@PathVariable (value = "id") UUID id){
         Optional<CategoriaModel> categoriaModelOptional = categoriaService.getCategoriaRepository().findById(id);
         if (!categoriaModelOptional.isPresent()){

@@ -72,10 +72,7 @@ public class AcessoModel implements UserDetails {
                     new SimpleGrantedAuthority("ROLE_ADMIN")
             );
         }
-        else if (this.rules.equals(Rules.BUYER) ) {
-            return List.of(new SimpleGrantedAuthority("ROLES_BUYER"));
-        }
-        else  return List.of(new SimpleGrantedAuthority("ROLE_SALES"));
+        else  return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
