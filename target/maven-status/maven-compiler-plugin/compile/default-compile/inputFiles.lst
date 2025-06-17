@@ -1,0 +1,14 @@
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/CategoriaApplication.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/configs/CategoriaSecurity.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/configs/SecurityFilter.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/configs/TokenService.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/controller/CategoriaController.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/model/AcessoModel.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/model/CategoriaModel.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/model/Rules.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/modelDTO/AcessoDTO.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/modelDTO/CategoriaDTO.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/repository/AcessoRepository.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/repository/CategoriaRepository.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/service/AcessoService.java
+/home/summ17/Documentos/projeto/kraken/categoria_kraken/src/main/java/br/com/kraken/categoria/java/service/CategoriaService.java
