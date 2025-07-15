@@ -2,7 +2,7 @@
 A API do Sistema Kraken responsável pelo gerenciamento do Categoria
 
 ## Serviço tem como a função:
-Cria, alterar, buscar e deletar os estoques cadastrado no banco de dado.
+Cria, alterar, buscar e deletar os categoria cadastrado no banco de dado.
 
 ## Ferramentas usado:
 Foi criado em Spring Boot e conteirizado com o Docker
